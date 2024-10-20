@@ -1,0 +1,29 @@
+获取选择的所有物体，并为所有物体设置命令
+def YetiCurve_Weight():
+    sel = cmds.ls(selection=True)
+    selshape = []
+    
+    for obj in sel:
+        shapes = cmds.listRelatives(obj, shapes=True, fullPath=True)
+        for shape in shapes:
+            attr_name = shape + ".weight"
+            cmds.setAttr(attr_name, 0.0)
+        selshape.extend(shapes)
+
+
+##将选择的物体变为shape节点物体
+sel = cmds.ls(sl=1)
+selshape = cmds.listRelatives(sel[0], c=1)
+##识别选择物体的类型
+seltype = cmds.nodeType(selshape[0])
+
+
+##添加一个网站链接
+import webbrowser
+webbrowser.open('https://www.facebook.com/UnPlugTools')
+
+
+##获取maya版本号路径
+mc.internalVar(usd=1)
+##获取User maya路径
+cmds.internalVar(userAppDir=True)

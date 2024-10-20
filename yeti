@@ -1,0 +1,46 @@
+##获取场景中所有的yeti节点
+def get_yeti_nodes():
+    all_nodes = cmds.ls(type="pgYetiMaya")
+    return all_nodes
+
+
+
+##依次列出核心节点内的所有节点名字（pgYetiMaya1Shape，pgYetiMaya1，pgYetiMaya1"，"pgYetiMaya1Shape"都可以被读取）
+pgYetiGraph -listNodes pgYetiMaya1Shape
+
+
+##依次列出指定节点的所有属性名
+pgYetiGraph -node "scatter1" -listParams "pgYetiMaya1Shape"
+
+
+##获取指定属性名的具体参数
+pgYetiGraph -node "scatter1" -param "density" -getParamValue pgYetiMaya1Shape
+
+
+##连接或断开两个节点（数字+1为连接的接口，例如0为merge的第一个接口，1为第二个接口）
+pgYetiGraph -node "scatter0" -connect "merge0" 0 "pgYetiMaya1"
+pgYetiGraph -node "grow01" -disconnect 0 pgYetiMaya1Shape
+
+
+##创建一个节点
+pgYetiGraph -create -type "import" "pgYetiMaya1"
+
+
+##重命名节点
+pgYetiGraph -node "import0" -rename "importAAA" 
+
+
+##选择面板中的节点
+pgYetiGraph -select "importAAA,scatter0,attribute0" -node "pgYetiMaya1"
+
+
+##选择移除指定节点
+pgYetiGraph -deselect "importAAA" -node "pgYetiMaya1"
+
+
+##取消所有所选
+pgYetiGraph -clearSelection
+
+
+##返回所选节点的名称
+pgYetiGraph -getSelection
